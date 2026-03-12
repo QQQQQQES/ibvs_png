@@ -1,0 +1,2 @@
+al_controller:cmake_utils:ibvs_core:ibvs_msgs:los_calculator:px4_flight_control:quadrotor_msgs:target_detection:uav_utils:visual_servo_controller
+-DCMAKE_BUILD_TYPE=Debug -DCATKIN_DEVEL_PREFIX=/home/zml/桌面/ibvs_png_ws/devel -DCMAKE_INSTALL_PREFIX=/home/zml/桌面/ibvs_png_ws/install -G Unix Makefiles

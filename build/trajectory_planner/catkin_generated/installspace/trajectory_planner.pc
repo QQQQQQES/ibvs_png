@@ -1,0 +1,8 @@
+prefix=/home/zml/桌面/ibvs_png_ws/install
+
+Name: trajectory_planner
+Description: Description of trajectory_planner
+Version: 0.1.0
+Cflags: -I${prefix}/include -I/usr/include/eigen3
+Libs: -L${prefix}/lib -ltrajectory_planner
+Requires: roscpp std_msgs geometry_msgs nav_msgs ibvs_msgs tf2 tf2_ros

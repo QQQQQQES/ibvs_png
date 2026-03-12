@@ -1,0 +1,16 @@
+{
+  "build": {
+    "workspace": "/home/zml/桌面/ibvs_png_ws",
+    "build_dir": "build",
+    "devel_dir": "devel",
+    "src_dir": "src"
+  },
+  "debug": {
+    "gdb_args": ["-ex", "run"],
+    "executable": "build/control_system",
+    "working_dir": "/home/zml/桌面/ibvs_png_ws"
+  },
+  "targets": [
+    "control_system"
+  ]
+}

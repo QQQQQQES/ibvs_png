@@ -1,0 +1,27 @@
+# LOS Calculator Configuration
+
+# PNG Guidance Parameters
+png_gain: 4.0                    # PNG navigation constant K (typically 3-5)
+max_velocity: 5.0                # Maximum UAV velocity (m/s)
+
+# Camera Parameters
+focal_length: 554.0              # Camera focal length (pixels)
+target_depth: 5.0                # Initial target depth estimate (m)
+
+# Control Parameters
+time_step: 0.03                  # Time step for LOS rate computation (s)
+control_rate: 33.0               # Control loop frequency (Hz) - should match 1/time_step
+
+# Topic Names
+topics:
+  target_error: "/target_error"                          # Input: pixel error from target detection
+  uav_odom: "/iris_0/mavros/local_position/odom"        # Input: UAV odometry
+  los_rate: "/los_calculator/los_rate"                   # Output: LOS angle rates
+  los_angles: "/los_calculator/los_angles"               # Output: LOS angles
+  lead_angles: "/los_calculator/lead_angles"             # Output: lead angles
+  target_normal: "/los_calculator/target_normal"         # Output: target normal vector
+
+# Debug Options
+debug:
+  enable_debug_output: false     # Enable ROS_DEBUG messages
+  publish_diagnostics: false     # Publish diagnostic information

@@ -1,0 +1,8 @@
+prefix=/home/zml/桌面/ibvs_png_ws/devel
+
+Name: los_calculator
+Description: Description of los_calculator
+Version: 0.0.0
+Cflags: -I/home/zml/桌面/ibvs_png_ws/src/los_calculator/include -I/usr/include/eigen3
+Libs: -L${prefix}/lib -llos_calculator
+Requires: roscpp rospy std_msgs geometry_msgs ibvs_msgs

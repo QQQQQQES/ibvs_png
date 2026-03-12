@@ -1,0 +1,13 @@
+<launch>
+    <node pkg="px4_flight_control" type="px4ctrl_node" name="px4ctrl" output="screen">
+        <remap from="~odom" to="/iris_0/mavros/local_position/odom" />
+        <remap from="~cmd" to="/position_cmd" />
+        <rosparam command="load" file="$(find px4_flight_control)/config/ctrl_param_fpv.yaml" />
+    </node>
+    
+    <!-- <node pkg="nodelet" type="nodelet" name="takeoff_publisher" output="screen" 
+          args="standalone" 
+          launch-prefix="bash -c 'sleep 5s &amp;&amp; rostopic pub -1 /px4ctrl/takeoff_land quadrotor_msgs/TakeoffLand &quot;takeoff_land_cmd: 1&quot; &amp;'">
+    </node> -->
+    
+</launch>

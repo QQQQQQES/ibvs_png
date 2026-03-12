@@ -1,0 +1,8 @@
+prefix=/home/zml/桌面/ibvs_png_ws/install
+
+Name: px4_flight_control
+Description: Description of px4_flight_control
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy quadrotor_msgs geometry_msgs sensor_msgs nav_msgs uav_utils mavros mavros_msgs

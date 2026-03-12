@@ -1,0 +1,24 @@
+# AL Controller Configuration
+
+# Thrust Parameters
+thr2acc: 12.727                  # Thrust to acceleration mapping coefficient
+thrust_min: 0.3                  # Minimum normalized thrust [0, 1]
+thrust_max: 0.95                 # Maximum normalized thrust [0, 1]
+max_thrust_acc: 200.0            # Maximum thrust acceleration (m/s²)
+
+# Control Parameters
+control_rate: 100.0              # Control loop frequency (Hz)
+
+# Topic Names
+topics:
+  desired_acceleration: "/desired_acceleration"           # Input: desired acceleration from velocity controller
+  uav_odom: "/iris_0/mavros/local_position/odom"        # Input: UAV odometry
+  thrust_direction: "/al_controller/thrust_direction"    # Output: desired thrust direction n_fd
+  thrust_value: "/al_controller/thrust_value"            # Output: normalized thrust value
+  angular_velocity: "/al_controller/angular_velocity"    # Output: desired angular velocity omega_d
+  attitude_target: "/mavros/setpoint_raw/attitude"       # Output: MAVROS attitude target
+
+# Debug Options
+debug:
+  enable_debug_output: false     # Enable ROS_DEBUG messages
+  publish_diagnostics: false     # Publish diagnostic information

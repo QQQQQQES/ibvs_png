@@ -1,0 +1,7 @@
+<launch>
+  <!-- AL Controller Node -->
+  <node name="al_controller_node" pkg="al_controller" type="al_controller_node" output="screen">
+    <!-- Load parameters from yaml file -->
+    <rosparam command="load" file="$(find al_controller)/config/al_controller.yaml" />
+  </node>
+</launch>

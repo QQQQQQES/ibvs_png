@@ -1,0 +1,139 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "catkin_make",
+      "type": "shell",
+      "command": "catkin_make",
+      "args": [
+        "-DCMAKE_BUILD_TYPE=Debug"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"],
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "catkin_make: target_detection",
+      "type": "shell",
+      "command": "catkin_make",
+      "args": [
+        "-DCMAKE_BUILD_TYPE=Debug"
+      ],
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "build_target_detection_node",
+      "type": "shell",
+      "command": "catkin_make",
+      "args": [
+        "target_detection_node",
+        "-DCMAKE_BUILD_TYPE=Debug"
+      ],
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "build_step1_node",
+      "type": "shell",
+      "command": "catkin_make",
+      "args": [
+        "step1_node",
+        "-DCMAKE_BUILD_TYPE=Debug"
+      ],
+      "group": "build", 
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "build_control_system",
+      "type": "shell",
+      "command": "catkin_make",
+      "args": [
+        "control_system",
+        "-DCMAKE_BUILD_TYPE=Debug"
+      ],
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "build_px4ctrl_node",
+      "type": "shell",
+      "command": "catkin_make",
+      "args": [
+        "px4ctrl_node",
+        "-DCMAKE_BUILD_TYPE=Debug"
+      ],
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": ["$gcc"]
+    },
+    {
+      "label": "load_px4ctrl_params",
+      "type": "shell",
+      "command": "rosparam",
+      "args": [
+        "load",
+        "${workspaceFolder}/src/px4_flight_control/config/ctrl_param_fpv.yaml",
+        "/px4ctrl"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "build_and_load_px4ctrl",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "build_px4ctrl_node",
+        "load_px4ctrl_params"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "clean",
+      "type": "shell",
+      "command": "catkin_make",
+      "args": ["clean"],
+      "group": "build",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    },
+    {
+      "label": "source_setup",
+      "type": "shell",
+      "command": "source",
+      "args": ["${workspaceFolder}/devel/setup.bash"],
+      "group": "none",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      }
+    }
+  ]
+}

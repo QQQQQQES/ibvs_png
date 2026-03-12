@@ -1,0 +1,26 @@
+<launch>
+  <!-- Visual Servo Controller Node -->
+  <node name="visual_servo_controller_node" pkg="visual_servo_controller" type="visual_servo_controller_node" output="screen">
+    <!-- Control gains -->
+    <param name="lambda" value="0.5"/>
+    <param name="k_v_x" value="1.0"/>
+    <param name="k_v_y" value="1.0"/>
+    <param name="k_v_z" value="1.0"/>
+    <param name="k_omega_x" value="0.5"/>
+    <param name="k_omega_y" value="0.5"/>
+    <param name="k_omega_z" value="0.5"/>
+
+    <!-- Camera parameters -->
+    <param name="focal_length" value="500.0"/>
+    <param name="principal_point_u" value="320.0"/>
+    <param name="principal_point_v" value="240.0"/>
+
+    <!-- Desired image position -->
+    <param name="desired_u" value="320.0"/>
+    <param name="desired_v" value="240.0"/>
+
+    <!-- Topic remapping -->
+    <remap from="/target_state" to="/target_state"/>
+    <remap from="/control_command" to="/control_command"/>
+  </node>
+</launch>

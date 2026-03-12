@@ -1,0 +1,8 @@
+prefix=/home/zml/桌面/ibvs_png_ws/devel
+
+Name: al_controller
+Description: Description of al_controller
+Version: 0.0.0
+Cflags: -I/home/zml/桌面/ibvs_png_ws/src/al_controller/include -I/usr/include/eigen3
+Libs: -L${prefix}/lib -lal_controller
+Requires: roscpp rospy std_msgs geometry_msgs nav_msgs ibvs_msgs mavros_msgs

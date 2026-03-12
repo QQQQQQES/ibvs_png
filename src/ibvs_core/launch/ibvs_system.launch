@@ -1,0 +1,23 @@
+<launch>
+  <!-- IBVS System Main Launch File -->
+
+  <!-- Arguments -->
+  <arg name="use_rviz" default="true"/>
+  <arg name="camera_topic" default="/camera/image_raw"/>
+
+  <!-- Target Detection Node -->
+  <include file="$(find target_detection)/launch/target_detection.launch">
+    <arg name="camera_topic" value="$(arg camera_topic)"/>
+  </include>
+
+  <!-- Visual Servo Controller Node -->
+  <include file="$(find visual_servo_controller)/launch/visual_servo_controller.launch"/>
+
+  <!-- Trajectory Planner Node -->
+  <include file="$(find trajectory_planner)/launch/trajectory_planner.launch"/>
+
+  <!-- RViz Visualization (optional) -->
+  <node if="$(arg use_rviz)" name="rviz" pkg="rviz" type="rviz"
+        args="-d $(find ibvs_core)/launch/ibvs_system.rviz" output="screen"/>
+
+</launch>

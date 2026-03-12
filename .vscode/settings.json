@@ -1,0 +1,22 @@
+{
+  "files.associations": {
+    "*.launch": "xml",
+    "*.xacro": "xml",
+    "*.urdf": "xml",
+    "*.sdf": "xml",
+    "*.world": "xml"
+  },
+  "C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+  "cmake.configureOnOpen": false,
+  "python.autoComplete.extraPaths": [
+    "${workspaceFolder}/devel/lib/python3/dist-packages"
+  ],
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/devel/lib/python3/dist-packages"
+  ],
+  "ros.distro": "noetic",
+  "terminal.integrated.env.linux": {
+    "ROS_WORKSPACE": "${workspaceFolder}"
+  },
+  "C_Cpp.errorSquiggles": "disabled"
+}

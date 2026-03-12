@@ -1,0 +1,7 @@
+# Request
+int32 target_id
+geometry_msgs/Point initial_position
+---
+# Response
+bool success
+string message

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Arguments -->
+  <arg name="config_file" default="$(find los_calculator)/config/los_calculator.yaml" />
+  <arg name="output" default="screen" />
+
+  <!-- LOS Calculator Node -->
+  <node pkg="los_calculator"
+        type="los_calculator_node"
+        name="los_calculator_node"
+        output="$(arg output)"
+        respawn="false">
+
+    <!-- Load parameters from yaml file -->
+    <rosparam command="load" file="$(arg config_file)" />
+
+  </node>
+
+</launch>

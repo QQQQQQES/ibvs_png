@@ -1,0 +1,46 @@
+<launch>
+  <!-- Target Detection Node -->
+  <node name="target_detection_node" pkg="target_detection" type="target_detection_node" output="screen">
+
+    <!-- Load parameters from YAML file -->
+    <rosparam command="load" file="$(find target_detection)/config/detection_params.yaml"/>
+
+    <!-- Image topic -->
+    <param name="image_topic" value="/iris_0/realsense/depth_camera/color/image_raw"/>
+
+    <!-- Detection parameters -->
+    <param name="detection_threshold" value="0.5"/>
+    <param name="min_detection_area" value="100"/>
+    <param name="dilation_iterations" value="2"/>
+
+    <!-- HSV color range for red target -->
+    <rosparam param="hsv_low_range">[0, 123, 100]</rosparam>
+    <rosparam param="hsv_high_range">[5, 255, 255]</rosparam>
+  
+    <!-- Kalman filter parameters -->
+    <param name="process_variance" value="0.0001"/>
+    <param name="measurement_variance" value="0.05"/>
+    <param name="update_rate" value="30.0"/>
+
+    <!-- Image parameters -->
+    <param name="image_center_u" value="320.0"/>
+    <param name="image_center_v" value="240.0"/>
+
+    <!-- Feature tracking parameters -->
+    <param name="max_features" value="100"/>
+    <param name="quality_level" value="0.01"/>
+
+    <!-- Depth estimation parameters -->
+    <param name="focal_length" value="554.0"/>
+    <param name="baseline" value="0.12"/>
+    <param name="use_depth_estimation" value="true"/>
+
+    <!-- Debug options -->
+    <param name="enable_debug_image" value="true"/>
+
+    <!-- Topic remapping -->
+    <remap from="/iris_0/realsense/depth_camera/color/image_raw" to="/iris_0/realsense/depth_camera/color/image_raw"/>
+    <remap from="/target_state" to="/target_state"/>
+    <remap from="/target_error" to="/target_error"/>
+  </node>
+</launch>
