@@ -97,6 +97,11 @@ int main(int argc, char *argv[])
                                              10,
                                              boost::bind(&PX4CtrlFSM::update_al_desired_velocity, &fsm, _1));
 
+    ros::Subscriber al_yaw_rate_sub =
+        nh.subscribe<std_msgs::Float64>("/al_controller/yaw_rate_sp",
+                                        10,
+                                        boost::bind(&PX4CtrlFSM::update_al_yaw_rate, &fsm, _1));
+
     fsm.ctrl_FCU_pub = nh.advertise<mavros_msgs::AttitudeTarget>("/iris_0/mavros/setpoint_raw/attitude", 10);
     fsm.traj_start_trigger_pub = nh.advertise<geometry_msgs::PoseStamped>("/traj_start_trigger", 10);
     fsm.thrust_model_pub = nh.advertise<std_msgs::Float64>("/px4ctrl/thrust_model", 10);

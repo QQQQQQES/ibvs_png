@@ -65,11 +65,11 @@ private:
   }
 
   void controlTimerCallback(const ros::TimerEvent&) {
-    // if (!target_received_ || !odom_received_) {
-    //   ROS_WARN_THROTTLE(2.0, "Waiting for data: target_received=%d, odom_received=%d",
-    //                     target_received_, odom_received_);
-    //   return;
-    // }
+    if (!target_received_ || !odom_received_) {
+      ROS_WARN_THROTTLE(2.0, "Waiting for data: target_received=%d, odom_received=%d",
+                        target_received_, odom_received_);
+      return;
+    }
 
     // Use error directly from /target_error topic
     double err_x = latest_target_error_.x;

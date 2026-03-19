@@ -84,6 +84,19 @@ void LOSCalculator::computeLOSAndLeadAngles(const Eigen::Vector3d& n_t) {
   if (!initialized_) {
     q_y_ = q_y_curr;
     q_z_ = q_z_curr;
+
+    // //test
+    // double v_xy_norm_init = std::sqrt(uav_velocity_.x()*uav_velocity_.x() 
+    //                                     + uav_velocity_.y()*uav_velocity_.y());
+    // if (uav_velocity_.norm() > 1e-3) {
+    //         prev_sigma_z_actual_ = std::atan2(uav_velocity_.z(), v_xy_norm_init);
+    //         prev_sigma_y_actual_ = std::atan2(uav_velocity_.x(), uav_velocity_.y());
+    //     } else {
+    //         prev_sigma_y_actual_ = q_y_curr;
+    //         prev_sigma_z_actual_ = q_z_curr;
+    //     }
+    // //
+
     sigma_y_d = q_y_curr;
     sigma_z_d = q_z_curr;
     prev_sigma_y_actual_ = q_y_curr;
@@ -96,6 +109,14 @@ void LOSCalculator::computeLOSAndLeadAngles(const Eigen::Vector3d& n_t) {
   delta_q_y_ = wrapToPi(q_y_curr - q_y_);
   delta_q_z_ = wrapToPi(q_z_curr - q_z_);
 
+  // if(delta_q_z_ > 0.056) {
+  //   std::cout << "Warning: Large elevation angle change detected: delta_q_z = %f" << delta_q_z_ << " rad" << std::endl;
+  //   return;
+  // }
+
+  double sigma_y_last = prev_sigma_y_actual_;
+  double sigma_z_last = prev_sigma_z_actual_;
+
   sigma_y_d = K_ * delta_q_y_ + prev_sigma_y_actual_;
   sigma_z_d = K_ * delta_q_z_ + prev_sigma_z_actual_;
 
@@ -103,6 +124,12 @@ void LOSCalculator::computeLOSAndLeadAngles(const Eigen::Vector3d& n_t) {
   q_z_ = q_z_curr;
   prev_sigma_y_actual_ = sigma_y_d;
   prev_sigma_z_actual_ = sigma_z_d;
+
+  // double v_xy_norm_curr = std::sqrt(uav_velocity_.x() * uav_velocity_.x() + uav_velocity_.y() * uav_velocity_.y());
+  // if (uav_velocity_.norm() > 1e-3) {
+  //       prev_sigma_z_actual_ = std::atan2(uav_velocity_.z(), v_xy_norm_curr);
+  //       prev_sigma_y_actual_ = std::atan2(uav_velocity_.x(), uav_velocity_.y());
+  //   }
 }
 
 Eigen::Vector2d LOSCalculator::computeLOSRate(double err_x, double err_y) {

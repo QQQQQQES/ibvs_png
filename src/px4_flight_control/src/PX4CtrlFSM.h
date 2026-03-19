@@ -10,6 +10,7 @@
 #include <mavros_msgs/SetMode.h>
 #include <mavros_msgs/CommandLong.h>
 #include <mavros_msgs/CommandBool.h>
+#include <std_msgs/Float64.h>
 
 #include "input.h"
 // #include "ThrustCurve.h"
@@ -59,9 +60,10 @@ public:
 	Eigen::Vector3d al_angular_velocity_;
 	double al_thrust_value_;
 	Eigen::Vector3d al_desired_acceleration_, al_desired_velocity_;
+	double al_yaw_rate_;
 	bool al_control_received_;
-	bool al_acceleration_received_, al_velocity_received_;
-	ros::Time last_al_control_time_, last_acc_received_time, last_vel_received_time_;
+	bool al_acceleration_received_, al_velocity_received_, al_yaw_rate_received_;
+	ros::Time last_al_control_time_, last_acc_received_time, last_vel_received_time_, last_yaw_rate_received_time_;
 	static constexpr double PNG_TIMEOUT = 0.5;  // 0.5s timeout
 
 	enum State_t
@@ -97,6 +99,7 @@ public:
 	void update_al_thrust_value(const geometry_msgs::Vector3::ConstPtr& msg);
 	void update_al_desired_acceleration(const geometry_msgs::Vector3::ConstPtr& msg);
 	void update_al_desired_velocity(const geometry_msgs::Vector3::ConstPtr& msg);
+	void update_al_yaw_rate(const std_msgs::Float64::ConstPtr& msg);
 
 private:
 	State_t state; // Should only be changed in PX4CtrlFSM::process() function!

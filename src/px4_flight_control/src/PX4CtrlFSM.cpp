@@ -163,12 +163,12 @@ void PX4CtrlFSM::process()
 			}
 			else
 			{
-				des.p = odom_data.p;  
-				des.v = al_desired_velocity_; // Use AL's output as desired velocity in CMD_CTRL mode
+				des.p = odom_data.p;
+				des.v = al_desired_velocity_;
 				des.a = Eigen::Vector3d::Zero();
 				des.j = Eigen::Vector3d::Zero();
-				des.yaw = uav_utils::get_yaw_from_quaternion(odom_data.q); 
-				des.yaw_rate = 0.0;
+				des.yaw = uav_utils::get_yaw_from_quaternion(odom_data.q);
+				des.yaw_rate = al_yaw_rate_;
 			}
 
 		    if (takeoff_land_data.triggered && takeoff_land_data.takeoff_land_cmd == quadrotor_msgs::TakeoffLand::LAND)
@@ -206,6 +206,7 @@ void PX4CtrlFSM::process()
 		else
 		{
 			debug_msg = controller.calculateControl(des, odom_data, imu_data, u);
+			u.bodyrates.z() = des.yaw_rate;
 			debug_msg.header.stamp = now_time;
 			debug_pub.publish(debug_msg);
 		}
@@ -402,15 +403,16 @@ void PX4CtrlFSM::publish_attitude_ctrl(const Controller_Output_t &u, const ros::
 
 	msg.header.stamp = stamp;
 	msg.header.frame_id = std::string("FCU");
-
+	//only yaw use the rate, this is mixed controller
 	msg.type_mask = mavros_msgs::AttitudeTarget::IGNORE_ROLL_RATE |
-					mavros_msgs::AttitudeTarget::IGNORE_PITCH_RATE |
-					mavros_msgs::AttitudeTarget::IGNORE_YAW_RATE;
+					mavros_msgs::AttitudeTarget::IGNORE_PITCH_RATE;
 
 	msg.orientation.x = u.q.x();
 	msg.orientation.y = u.q.y();
 	msg.orientation.z = u.q.z();
 	msg.orientation.w = u.q.w();
+
+	msg.body_rate.z = u.bodyrates.z();
 
 	msg.thrust = u.thrust;
 
@@ -527,6 +529,13 @@ void PX4CtrlFSM::update_al_desired_velocity(const geometry_msgs::Vector3::ConstP
 	al_desired_velocity_(2) = msg->z;
 	last_vel_received_time_ = ros::Time::now();
 	al_velocity_received_ = true;
+}
+
+void PX4CtrlFSM::update_al_yaw_rate(const std_msgs::Float64::ConstPtr& msg)
+{
+	al_yaw_rate_ = msg->data;
+	last_yaw_rate_received_time_ = ros::Time::now();
+	al_yaw_rate_received_ = true;
 }
 
 void PX4CtrlFSM::check_png_guidance_state()
